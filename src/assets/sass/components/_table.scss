@@ -1,0 +1,51 @@
+.table {
+    thead {
+        th {
+            background-color: $primary2;
+            border-color: rgba($white, 0.25);
+            // border-color: $secondary2;
+            color: #fff;
+        }
+    }
+    th,
+    td {
+        border-color: rgba($white, 0.25);
+        // border-color: $secondary2;
+        vertical-align: middle;
+        // text-transform: capitalize;
+        padding: 0.625rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        line-height: 2;
+    }
+    .button {
+        width: 2rem;
+        height: 2rem;
+        vertical-align: middle;
+        font-size: 0.75rem;
+        position: relative;
+        i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            @include transF(translate(-50%, -50%));
+        }
+    }
+    &-hover {
+        tbody {
+            tr {
+                &:hover {
+                    // color: $dark;
+                    background-color: rgba($primary2, 0.075);
+                }
+            }
+        }
+    }
+    &-scrollable {
+        overflow-x: auto;
+        th,
+        td {
+            min-width: 200px;
+        }
+    }
+}

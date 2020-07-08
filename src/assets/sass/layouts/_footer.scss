@@ -1,0 +1,42 @@
+.footer {
+    &-col {
+        h3 {
+            margin-bottom: 2rem;
+            font-size: 1.75rem;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+    }
+    &-link {
+        margin: 5px 0;
+        color: $grey;
+        &.logo {
+            font-size: 1.75rem;
+            margin: 0;
+        }
+    }
+    &-social {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        &-list {
+            margin: 0 0.5rem;
+        }
+        &-link {
+            display: block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: relative;
+            color: #fff;
+            &:hover {
+                color: #fff;
+                background-color: $secondary1;
+            }
+            i {
+                @include posCenter(auto);
+                font-size: 1.5rem;
+            }
+        }
+    }
+}

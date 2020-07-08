@@ -1,0 +1,246 @@
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+*:focus,
+*:hover {
+    outline: none;
+}
+body {
+    font-family: $monts;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: $dark;
+    line-height: 1.5;
+    box-sizing: border-box;
+    min-width: 320px;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $osw;
+    color: $dark;
+    font-weight: 400; 
+    padding: 0;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+p {
+    color: $dark;
+}
+
+p,
+a {
+    font-family: $monts;
+    line-height: 1.5;
+}
+p,
+a,
+span,
+small,
+button,
+input,
+textarea,
+label {
+    padding: 0;
+}
+a {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 500;
+    @include transit(0.25s);
+    &:hover {
+        text-decoration: none;
+    }
+}
+button {
+    font-family: $monts;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    @include transit(0.25s);
+    &:focus,
+    &:hover {
+        outline: none;
+    }
+}
+a,
+button,
+input,
+textarea {
+    @include transit(0.3s);
+}
+input,
+textarea {
+    border: none;
+    @include hoverFocus {
+        outline: none;
+    }
+}
+ul,
+ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+select {
+    background-color: #fff;
+}
+@include setChildCmnt("custom classes starts");
+
+@each $className, $clr in $colors {
+    @if (not str-index($string: $className, $substring: "grad-")) {
+        #{".text-" + $className} {
+            color: $clr !important;
+        }
+    }
+}
+@each $className, $clr in $colors {
+    #{".bg-" + $className} {
+        background: $clr !important;
+    }
+    #{".button-" + $className} {
+        background: $clr !important;
+
+        @if (lightness($clr) <= 60%) {
+            color: $white;
+            &:hover {
+                background-color: lighten($color: $clr, $amount: 10%) !important;
+            }
+        } @else {
+            color: $black;
+            &:hover {
+                background-color: darken($color: $clr, $amount: 10%) !important;
+            }
+        }
+
+        &:disabled,
+        &.disabled {
+            opacity: 0.5;
+            background-color: $clr !important;
+            cursor: not-allowed;
+            color: $white !important;
+
+            &:hover {
+                background-color: $clr !important;
+            }
+        }
+    }
+    #{".link-" + $className} {
+        color: $clr !important;
+
+        @if (lightness($clr) < 50%) {
+            &:hover {
+                color: lighten($color: $clr, $amount: 10%) !important;
+            }
+        } @else {
+            &:hover {
+                color: darken($color: $clr, $amount: 10%) !important;
+            }
+        }
+    }
+
+    #{".hover-" + $className} {
+        &:hover {
+            color: $clr !important;
+        }
+    }
+    #{".link-hover-" + $className} {
+        color: inherit;
+        &:hover,
+        &:focus {
+            color: $clr !important;
+        }
+    }
+    #{".button-border-" + $className} {
+        border-color: $clr !important;
+        color: $clr;
+        &:hover {
+            background-color: $clr;
+            // background-color: rgba($clr,1);
+            color: $white;
+        }
+
+        &:disabled,
+        &.disabled {
+            opacity: 0.5;
+            background-color: $clr !important;
+            cursor: not-allowed;
+            color: $white !important;
+
+            &:hover {
+                background-color: $clr !important;
+            }
+        }
+    }
+    #{".input-border-" + $className} {
+        // border-color: $clr !important;
+        &:focus {
+            border-color: $clr !important;
+            box-shadow: 0 0 0.2rem 0.2rem rgba($clr, 0.25);
+            // box-shadow: 0px 0px 3px -2px lighten($color: $clr, $amount: 10%);
+            // background-color: rgba($clr,1);
+        }
+        &:disabled,
+        &[readonly],
+        &.disabled {
+            background-color: rgba($clr, 0.1) !important;
+        }
+    }
+    #{".input-" + $className} {
+        background-color: $clr !important;
+        &:focus {
+            background-color: lighten($color: $clr, $amount: 10%) !important;
+            // box-shadow: 0px 0px 3px -2px lighten($color: $clr, $amount: 10%);
+            // background-color: rgba($clr,1);
+        }
+
+        @if (lightness($clr) <= 60%) {
+            color: $white;
+            &:focus {
+                background-color: lighten($color: $clr, $amount: 10%) !important;
+            }
+
+            &::placeholder {
+                color: rgba(#fff, lightness($clr) * 1.4);
+            }
+        } @else {
+            color: $black;
+            &:focus {
+                background-color: lighten($color: $clr, $amount: 10%) !important;
+            }
+
+            &::placeholder {
+                color: rgba(#000, 0.6);
+            }
+        }
+
+        &:disabled,
+        &[readonly],
+        &.disabled {
+            background-color: rgba($clr, 0.05) !important;
+        }
+    }
+    #{".border-" + $className} {
+        border-color: $clr !important;
+    }
+}
+@each $bpName in $breakpoints-class {
+    @include classForBP($bpName) {
+        @each $num, $val in $spacers {
+            #{".p" + $bpName + "-" + $num} {
+                padding: #{$val + " !important"};
+            }
+        }
+    }
+}

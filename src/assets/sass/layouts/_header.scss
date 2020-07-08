@@ -1,0 +1,108 @@
+// #header {
+//     // @include gradient-bg($secondary1, $secondary2);
+//     background-color: $white;
+//     position: relative;
+//     &:after {
+//         content: "";
+//         position: absolute;
+//         bottom: -1px;
+//         height: 1px;
+//         width: 100%;
+//         @include gradient-bg($secondary1, $secondary2);
+//     }
+// }
+
+// .navbar .navbar-nav .nav-link {
+//     color: $primary1;
+//     i {
+//         font-size: 1.5rem;
+//     }
+// }
+.navbar .navbar-nav .nav-item {
+    position: relative;
+}
+.navbar .navbar-nav .active > .nav-link,
+.navbar .navbar-nav .nav-link.active {
+    &:after {
+        content: "";
+        width: 100%;
+        height: 2px;
+        background-color: $secondary2;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+}
+// .navbar .navbar-nav .nav-link:focus,
+// .navbar .navbar-nav .nav-link:hover {
+//     color: $secondary2;
+// }
+// .navbar .navbar-nav .nav-link.disabled {
+//     color: rgba($black, 0.6);
+// }
+
+.page {
+    &-banner {
+        padding: 10rem 0 2rem 0;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        z-index: 0;
+        &:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(180deg, $primary1 0%, transparent);
+            z-index: -1;
+        }
+    }
+    &-title {
+        font-size: 3rem;
+    }
+}
+
+.header {
+    // @include gradient-bg($black, $blue, 80%, 200%, -10deg);
+    // background: #000;
+    .navbar {
+        // padding: 1rem;
+        &-expand {
+            .container {
+                padding-left: inherit;
+                padding-right: inherit;
+            }
+        }
+    }
+    .nav-link {
+        color: #fff;
+        padding: 0.5rem 1rem !important;
+        position: relative;
+    }
+}
+
+#header-index {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: auto;
+    background: transparent;
+    z-index: 9999;
+    @include transit(0.3s);
+    &.header-fix {
+        position: fixed;
+        top: 0;
+        background: rgba($primary1, 0.8);
+        .nav-link {
+            &:hover {
+            }
+        }
+    }
+}
+
+.section {
+    &-common {
+        padding: 5rem 0;
+    }
+}

@@ -1,0 +1,171 @@
+@mixin webkitMaker($prop, $val) {
+    @each $prefix in ("-webkit-", "-moz-", "-ms-", "-o-", "") {
+        #{$prefix+$prop}: $val;
+    }
+}
+@mixin transit($dur) {
+    @include webkitMaker(transition, $dur);
+}
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+@mixin posCenter($w: 100%, $h: $w) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include size($w, $h);
+    @include webkitMaker(transform, translate(-50%, -50%));
+}
+@mixin posCustom($w: 100%, $h: $w, $T: 0, $L: 0) {
+    position: absolute;
+    top: $T;
+    left: $L;
+    @include size($w, $h);
+}
+@mixin posCustomBR($w: 100%, $h: $w, $B: 0, $R: 0) {
+    position: absolute;
+    bottom: $B;
+    right: $R;
+    @include size($w, $h);
+}
+@mixin transF($val) {
+    @include webkitMaker(transform, #{$val});
+}
+@mixin center($mY: 0) {
+    margin: $mY auto;
+    display: table;
+}
+@mixin gradient-bg($clr1, $clr2: $trans, $endClr1: 0%, $endClr2: 100%, $rot: 45deg) {
+    background: Grad($clr1, $clr2, $endClr1, $endClr2, $rot);
+}
+// Horizontal gradient, from left to right
+@mixin gradient-x($start-color: #000, $end-color: #fff, $start-percent: 0%, $end-percent: 100%,$x:'to right') {
+    background: Grad($clr1, $clr2, $endClr1, $endClr2, $rot);
+    background: linear-gradient(#{$x}, $start-color $start-percent, $end-color $end-percent);
+}
+
+// Vertical gradient, from top to bottom
+@mixin gradient-y($start-color: #000, $end-color: #fff, $start-percent: 0%, $end-percent: 100%) {
+    background: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent);
+}
+
+@mixin gradient-radial($inner-color: #000, $outer-color: #fff) {
+    background: radial-gradient(circle, $inner-color, $outer-color);
+    background-repeat: no-repeat; 
+}
+@mixin gradient-striped($color: rgba(#000, 0.15), $angle: 45deg) {
+    background: linear-gradient(
+        $angle,
+        $color 25%,
+        transparent 25%, 
+        transparent 50%,
+        $color 50%,
+        $color 75%,
+        transparent 75%,
+        transparent
+    ); 
+}
+@mixin setFont($name: inherit, $size: inherit, $wght: inherit) {
+    font-family: $name;
+    font-size: $size;
+    font-weight: $wght;
+}
+@mixin boxShad($x: 0, $y: 0, $blur: 0, $spread: 0, $clr: #000) {
+    @include webkitMaker(box-shadow, #{$x $y $blur $spread $clr});
+}
+@mixin keyFrames($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+    @-o-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
+}
+@mixin anim($name, $dur: 1s, $direction: normal, $func: ease, $mode: infinite) {
+    @include webkitMaker(animation, #{$name $dur $direction $func $mode});
+}
+@mixin hoverFocus {
+    &:hover,
+    &:focus {
+        @content;
+    }
+}
+
+@mixin setBGImg($path, $size: cover, $x: center, $y: center) {
+    background-image: url(#{$imgPath+$path});
+    background-size: $size;
+    background-position: $x $y;
+    background-repeat: no-repeat;
+}
+
+
+
+@mixin classForBP($bpName) {
+    @if ($bpName == "") {
+        @content;
+    }
+    @if ($bpName == "-xxs") {
+        @media only screen and (max-width: 359.98px) {
+            @content;
+        }
+    }
+    @if ($bpName == "-xs") {
+        // Extra small devices (portrait phones, less than 576px)
+        @media only screen and (min-width: 360px) and (max-width: 575.98px) {
+            @content;
+        }
+    }
+    @if ($bpName == "-sm") {
+        // Small devices (landscape phones, 576px and up)
+        @media only screen and (min-width: 576px) and (max-width: 767.98px) {
+            @content;
+        }
+    }
+    @if ($bpName == "-md") {
+        // Medium devices (tablets, 768px and up)
+        @media only screen and (min-width: 768px) and (max-width: 991.98px) {
+            @content;
+        }
+    }
+    @if ($bpName == "-lg") {
+        // Large devices (desktops, 992px and up)
+        @media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+            @content;
+        }
+    }
+    @if ($bpName == "-xl") {
+        // Extra large devices (large desktops, 1200px and up)
+        @media only screen and (min-width: 1200px) {
+            @content;
+        }
+    }
+    // @if ($bpName == "xl") {
+    //     // Large devices (desktops, 992px and up)
+    //     @media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+    //         @content;
+    //     }
+    // }
+    // @if ($bpName == "xl") {
+    //     // Large devices (desktops, 992px and up)
+    //     @media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+    //         @content;
+    //     }
+    // }
+}
+
+@mixin gradTxt($grad,$textClr:$trans) {
+    color:$textClr;
+    background: $grad;
+    @include webkitMaker(background-clip,text);
+}
+        

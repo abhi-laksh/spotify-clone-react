@@ -1,0 +1,58 @@
+@function capitalize($string) {
+    @return to-upper-case(str-slice($string, 1, 1)) + str-slice($string, 2);
+}
+@function str-ucwords($string) {
+    $progress: $string;
+    $result: "";
+
+    $running: true;
+
+    @while $running {
+        $index: str-index($progress, " ");
+        @if $index {
+            $result: $result + capitalize(str-slice($progress, 1, $index));
+            $progress: str-slice($progress, ($index + 1));
+        } @else {
+            $running: false;
+        }
+    }
+
+    @return capitalize($result) + capitalize($progress);
+}
+@mixin setMainCmnt($msg) {
+    /*#{'||  ======================  '+ str-ucwords($msg) +'  ======================  ||'}*/
+}
+@mixin setChildCmnt($msg) {
+    /*#{'||  ----  '+ str-ucwords($msg) +'  ----  ||'}*/
+}
+
+
+@import "abstracts/functions";
+@import "abstracts/mixins";
+@import "abstracts/varibales";
+
+@import "base/animation";
+@import "base/base";
+@import "base/keyframes";
+@import "base/typography";
+
+@import "components/button";
+@import "components/form";
+@import "components/icons";
+@import "components/input";
+@import "components/links";
+@import "components/messages";
+@import "components/others";
+@import "components/modal";
+@import "components/table";
+@import "components/toasts";
+@import "components/song";
+
+@import "layouts/footer";
+@import "layouts/player";
+@import "layouts/header";
+@import "layouts/admin";
+
+@import "pages/home";
+@import "pages/profile";
+@import "base/responsive";

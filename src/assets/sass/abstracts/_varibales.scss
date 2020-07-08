@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
+@function Grad($clr1, $clr2, $endClr1: 0%, $endClr2: 100%, $rot: 45deg) {
+    @return #{"linear-gradient(" + $rot + "," + $clr1 + " " + $endClr1 + "," + $clr2 + " " + $endClr2 + ")"};
+}
+$FA: "Font Awesome 5";
+$monts: "Montserrat", sans-serif;
+$osw: "Oswald", sans-serif;
+
+$primary1: #000310;
+$primary2: #232655;
+$secondary1: #eb3b5a;
+$secondary2: #fc5c65;
+$info: #00b5e2;
+$error: #e40404; 
+$success: #18c27b;
+
+$grey: #ddd;
+
+$black: #000;
+$white: #fff;
+
+$dark: #19191d;
+
+$trans: transparent;
+
+$colors: (
+    "primary1": $primary1,
+    "primary2": $primary2,
+    "secondary1": $secondary1,
+    "secondary2": $secondary2,
+    "info": $info,
+    "error": $error,
+    "success": $success,
+    "black": $black,
+    "white": $white,
+    "dark": $dark,
+    "grey": $grey,
+);
+
+$breakpoints-class: ("", "-xxs", "-xs", "-sm", "-md", "-lg", "-xl");
+$spacer: 1rem !default;
+$spacers: () !default;
+$spacers: map-merge(
+    (
+        0: 0,
+        1: (
+            $spacer * 0.25,
+        ),
+        2: (
+            $spacer * 0.5,
+        ),
+        3: $spacer,
+        4: (
+            $spacer * 1.5,
+        ),
+        5: (
+            $spacer * 3,
+        ),
+    ),
+    $spacers
+);
+$imgPath: "./images/";
