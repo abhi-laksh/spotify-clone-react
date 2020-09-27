@@ -5,6 +5,7 @@ import bgImg from '../../assets/images/a.jpg';
 import { isAuthenticated } from '../../backend/helpers/auth';
 
 function Banner(props) {
+
     return (
         <section className="banner-home" style={{ background: `url(${bgImg})` }}>
             <div className="banner-overlay">

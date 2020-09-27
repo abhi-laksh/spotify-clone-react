@@ -15,15 +15,15 @@ function Search(props) {
     const [queue, setQueue] = useState([]);
 
     const [currentSong, setCurrentSong] = useState(null);
-    
+
     const [searchText, setSearchText] = useState("");
 
     const searchResult = searchText && allSongs.filter((each) => {
         return (
             (each.song_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
-            || (each.artist_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
-            || (each.mood_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
-            || (each.genre_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
+            || (each.artist_name && each.artist_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
+            || (each.mood_name && each.mood_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
+            || (each.genre_name && each.genre_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
         )
     });
 
@@ -64,7 +64,19 @@ function Search(props) {
         setSearchText(e.target.value);
     }
 
+    console.log('====================================');
+    console.log("allSongs::", allSongs);
+    console.log('====================================');
+
+    console.log('====================================');
+    console.log("searchText::", searchText);
+    console.log('====================================');
+    
+    
     useEffect(() => {
+        console.log('====================================');
+        console.log("RERENDER");
+        console.log('====================================');
         preloadSongs();
     }, []);
 

@@ -130,7 +130,7 @@ function AddGenre(props) {
     return (
         <Layout title="Add Genre">
             {form()}
-            {/* {performRedirect()} */}
+            {performRedirect()}
         </Layout>
     );
 }

@@ -129,7 +129,7 @@ function AddArtist(props) {
     return (
         <Layout title="Add Artist">
             {form()}
-            {/* {performRedirect()} */}
+            {performRedirect()}
         </Layout>
     );
 }

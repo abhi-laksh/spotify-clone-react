@@ -273,10 +273,6 @@ function Control({ songId, queue, setCurrentSong = () => { }, length, ...props }
 
     }, [queue, songId]);
 
-    console.log('====================================');
-    console.log(`prev::${prevSong}`, `CURR::${songId}`, `next::${nextSong}`);
-    console.log('====================================');
-
     return (
         <div className="player-controls">
             <div className="player-controls-btns">

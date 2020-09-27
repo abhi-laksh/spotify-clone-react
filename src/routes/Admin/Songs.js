@@ -19,10 +19,10 @@ function Songs(props) {
 
     const searchResult = searchText && allSongs.filter((each) => {
         return (
-            (each.song_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
-            || (each.artist_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
-            || (each.mood_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
-            || (each.genre_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
+            (each.song_name && each.song_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
+            || (each.artist_name && each.artist_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
+            || (each.mood_name && each.mood_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
+            || (each.genre_name && each.genre_name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
         )
     });
 

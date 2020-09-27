@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { isAuthenticated, signOut } from "../backend/helpers/auth";
+
 function ProtectedRoutes({ component: Component, ...props }) {
 
     const [isExpired, setIsExpired] = useState(false);

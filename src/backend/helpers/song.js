@@ -4,8 +4,8 @@ import { API } from "../api";
 // Get All list of songs
 export const getAllSongs = () => {
     return (
-        fetch(`${API}/song`, {
-            method: "GET",
+        fetch(`${API}/song/`, {
+            method: "GET"
         })
             .then((response) => response.json())
             .catch((err) => { console.warn(err) })
@@ -15,7 +15,7 @@ export const getAllSongs = () => {
 // Get song by id
 export const getSongbyId = (id) => {
     return (
-        fetch(`${API}/song?id=${id}`, {
+        fetch(`${API}/song/index.php?id=${id}`, {
             method: "GET",
         })
             .then((response) => response.json())
