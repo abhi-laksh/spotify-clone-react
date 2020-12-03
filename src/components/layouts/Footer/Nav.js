@@ -17,7 +17,7 @@ function Nav({ history }) {
                 <div className="row">
                     <div className="col-4">
                         <div className="footer-col">
-                            <Link to="/" className="footer-link logo link-white">Spotify</Link>
+                            <Link to="/" className="footer-link logo link-white">Dhoni</Link>
                         </div>
                     </div>
                     <div className="col-4">

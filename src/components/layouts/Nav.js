@@ -26,7 +26,7 @@ function Nav({ history }) {
     return (
         <nav className="navbar navbar-expand">
             <div className="container">
-                <Link to="/" className="navbar-brand link-white">Spotify</Link>
+                <Link to="/" className="navbar-brand link-white">Dhoni</Link>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ml-auto">
                         <li className={`nav-item${currentTab(history, "/")}`}>
@@ -80,7 +80,7 @@ function Nav({ history }) {
                         }
 
                         <li className={`nav-item${currentTab(history, "/webplayer")}`}>
-                            <a href="https://github.com/abhi-laksh/react-php-spotify" className="nav-link text-capitalize hover-secondary2" >
+                            <a href="https://github.com/abhi-laksh/react-php-dhoni" className="nav-link text-capitalize hover-secondary2" >
                                 <i class="fab fa-github mr-2"></i>
                                 Github
                             </a>
