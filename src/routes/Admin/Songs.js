@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Layout from '../../components/layouts/Admin/Layout';
-
 import { isAuthenticated } from '../../backend/helpers/auth';
-import { getAllSongs, deleteSong } from '../../backend/helpers/song';
+import { deleteSong, getAllSongs } from '../../backend/helpers/song';
+import Table from '../../components/commons/Table';
+import Layout from '../../components/layouts/Admin/Layout';
+import { songsHeadcells } from '../../utils/headCells';
+
 
 function Songs(props) {
 
@@ -36,7 +38,19 @@ function Songs(props) {
                     msg: (resp && resp.error) || "There is an error."
                 })
             } else {
-                setAllSongs(resp.songs);
+                setAllSongs(resp.songs.map((each) => {
+                    return {
+                        ...each,
+                        action: (
+                            <>
+                                <Link to={`/admin/songs/edit/${each.id}`} className="button icon-button button-primary2 text-white mr-2 p-1">
+                                    <i className="far fa-edit"></i>
+                                </Link>
+                                <button className="button icon-button button-error p-1" onClick={onDelete(each.id)}><i className="far fa-trash-alt"></i></button>
+                            </>
+                        )
+                    }
+                }));
             }
         })
     }
@@ -179,9 +193,15 @@ function Songs(props) {
 
     return (
         <Layout title="Songs">
-            {Search()}
+            {/* {Search()} */}
             {message()}
-            {songTable()}
+            {/* {songTable()} */}
+
+			<Table
+				title="Songs"
+				columns={songsHeadcells}
+				tableData={allSongs}
+			/>
         </Layout>
     );
 }

@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Layout from '../../components/layouts/Admin/Layout';
-
 import { isAuthenticated } from '../../backend/helpers/auth';
-import { getAllGenres, deleteGenre } from '../../backend/helpers/genre';
+import { deleteGenre, getAllGenres } from '../../backend/helpers/genre';
+import Table from '../../components/commons/Table';
+import Layout from '../../components/layouts/Admin/Layout';
+import { genresHeadCells } from '../../utils/headCells';
+
 
 function Genres(props) {
 
@@ -22,31 +24,6 @@ function Genres(props) {
             (each.name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
         )
     });
-
-    // fetch and load all genres
-    const preload = () => {
-        getAllGenres().then((resp) => {
-            if (!resp || resp.error) {
-                setStatus({
-                    error: true,
-                    success: false,
-                    msg: (resp && resp.error) || "There is an error."
-                })
-            } else {
-                setAllGenres(resp.genres);
-            }
-        })
-    }
-
-    // Message Component
-    const message = () => (
-        (status.error && <p className="alert w-100 text-center alert-danger">{status.msg}</p>)
-        || (status.success && <p className="alert w-100 text-center alert-success">{`${status.msg} !`}</p>)
-    )
-
-    const handleSearch = (e) => {
-        setSearchText(e.target.value);
-    }
 
 
     const onDelete = (id) => {
@@ -89,6 +66,43 @@ function Genres(props) {
         })
     }
 
+    // fetch and load all genres
+    const preload = () => {
+        getAllGenres().then((resp) => {
+            if (!resp || resp.error) {
+                setStatus({
+                    error: true,
+                    success: false,
+                    msg: (resp && resp.error) || "There is an error."
+                })
+            } else {
+                setAllGenres(resp.genres.map((each) => {
+                    return {
+                        ...each,
+                        action: (
+                            <>
+                                <Link to={`/admin/genres/edit/${each.id}`} className="button icon-button button-primary2 text-white mr-2 p-1">
+                                    <i className="far fa-edit"></i>
+                                </Link>
+                                <button className="button icon-button button-error p-1" onClick={onDelete(each.id)}><i className="far fa-trash-alt"></i></button>
+                            </>
+                        )
+                    }
+                }));
+            }
+        })
+    }
+
+    // Message Component
+    const message = () => (
+        (status.error && <p className="alert w-100 text-center alert-danger">{status.msg}</p>)
+        || (status.success && <p className="alert w-100 text-center alert-success">{`${status.msg} !`}</p>)
+    )
+
+    const handleSearch = (e) => {
+        setSearchText(e.target.value);
+    }
+
 
     const TR = (row, index) => (
         <tr key={index}>
@@ -96,10 +110,10 @@ function Genres(props) {
             <td className="text-grey">{row.name}</td>
             <td className="text-grey" style={{ width: "40%" }}>{row.description}</td>
             <td>
-                <Link to={`/admin/genres/edit/${row.id}`} className="button button-primary2 text-white mr-2 p-0">
+                <Link to={`/admin/genres/edit/${row.id}`} className="button icon-button button-primary2 text-white mr-2 p-0">
                     <i className="far fa-edit"></i>
                 </Link>
-                <button className="button button-error p-0" onClick={onDelete(row.id)}><i className="far fa-trash-alt"></i></button>
+                <button className="button icon-button button-error p-0" onClick={onDelete(row.id)}><i className="far fa-trash-alt"></i></button>
             </td>
         </tr>
     )
@@ -162,9 +176,15 @@ function Genres(props) {
 
     return (
         <Layout title="Genres">
-            {Search()}
+            {/* {Search()} */}
             {message()}
-            {genreTable()}
+            {/* {genreTable()} */}
+
+            <Table
+                title="Genres"
+                columns={genresHeadCells}
+                tableData={allGenres}
+            />
         </Layout>
     );
 }

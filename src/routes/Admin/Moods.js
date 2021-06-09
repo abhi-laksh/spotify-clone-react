@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Layout from '../../components/layouts/Admin/Layout';
-
 import { isAuthenticated } from '../../backend/helpers/auth';
-import { getAllMoods, deleteMood } from '../../backend/helpers/mood';
+import { deleteMood, getAllMoods } from '../../backend/helpers/mood';
+import Table from '../../components/commons/Table';
+import Layout from '../../components/layouts/Admin/Layout';
+import { moodsHeadCells } from '../../utils/headCells';
+
 
 function Moods(props) {
 
@@ -33,7 +35,19 @@ function Moods(props) {
 					msg: (resp && resp.error) || "There is an error."
 				})
 			} else {
-				setAllMoods(resp.moods);
+				setAllMoods(resp.moods.map((each) => {
+					return {
+						...each,
+						action: (
+							<>
+								<Link to={`/admin/moods/edit/${each.id}`} className="button icon-button button-primary2 text-white mr-2 p-1">
+									<i className="far fa-edit"></i>
+								</Link>
+								<button className="button icon-button button-error p-1" onClick={onDelete(each.id)}><i className="far fa-trash-alt"></i></button>
+							</>
+						)
+					}
+				}));
 			}
 		})
 	}
@@ -108,8 +122,8 @@ function Moods(props) {
 			value={searchText}
 			onChange={handleSearch}
 		/>
-    )
-    
+	)
+
 	const moodTable = () => (
 		<table className="table table-hover text-center">
 			<thead>
@@ -157,9 +171,15 @@ function Moods(props) {
 
 	return (
 		<Layout title="Moods">
-			{Search()}
+			{/* {Search()} */}
 			{message()}
-			{moodTable()}
+			{/* {moodTable()} */}
+
+			<Table
+				title="Moods"
+				columns={moodsHeadCells}
+				tableData={allMoods}
+			/>
 		</Layout>
 	);
 }

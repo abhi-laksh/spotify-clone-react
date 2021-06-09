@@ -8,10 +8,17 @@
 .alert-small {
     font-size: 0.8125rem;
 }
+
 .notFound {
     font-size: 1.5rem;
     text-transform: capitalize;
     width: 50%;
     margin: 2rem auto;
     display: block;
+}
+
+.avatar {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 36px;
 }

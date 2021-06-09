@@ -49,3 +49,18 @@
         }
     }
 }
+
+
+.icon-button {
+    width: 2rem;
+    height: 2rem;
+    vertical-align: middle;
+    font-size: 0.75rem;
+    position: relative;
+    i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        @include transF(translate(-50%, -50%));
+    }
+}

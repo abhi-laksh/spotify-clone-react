@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Layout from '../../components/layouts/Admin/Layout';
-import Table from './Table';
-import { getAllArtists, deleteArtist } from '../../backend/helpers/artist';
+import { deleteArtist, getAllArtists } from '../../backend/helpers/artist';
 import { isAuthenticated } from '../../backend/helpers/auth';
+import Table from '../../components/commons/Table';
+import Layout from '../../components/layouts/Admin/Layout';
+import { artistsHeadCells } from '../../utils/headCells';
 
 function Artists(props) {
 
@@ -33,7 +34,19 @@ function Artists(props) {
 					msg: (resp && resp.error) || "There is an error."
 				})
 			} else {
-				setAllArtists(resp.artists);
+				setAllArtists(resp.artists.map((each) => {
+                    return {
+                        ...each,
+                        action: (
+                            <>
+                                <Link to={`/admin/artists/edit/${each.id}`} className="button icon-button button-primary2 text-white mr-2 p-1">
+                                    <i className="far fa-edit"></i>
+                                </Link>
+                                <button className="button icon-button button-error p-1" onClick={onDelete(each.id)}><i className="far fa-trash-alt"></i></button>
+                            </>
+                        )
+                    }
+                }));
 			}
 		})
 	}
@@ -161,9 +174,14 @@ function Artists(props) {
 
 	return (
 		<Layout title="Artists">
-			{Search()}
+			{/* {Search()} */}
 			{message()}
-			{artistTable()}
+			{/* {artistTable()} */}
+			<Table
+				title="Artists"
+				columns={artistsHeadCells}
+				tableData={allArtists}
+			/>
 		</Layout>
 	);
 }
