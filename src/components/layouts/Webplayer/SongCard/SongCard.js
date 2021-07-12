@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import piano from '../../../../assets/images/rain.jpg';
 import play from '../../../../assets/images/play.svg';
+import piano from '../../../../assets/images/rain.jpg';
+
 
 SongCard.propTypes = {
 };
@@ -14,11 +13,32 @@ function SongCard({
     mood = "Unknown",
     genre = "Unknown",
     isPlaying = false,
+    empty = false,
     onClick = () => { },
     ...props
 }) {
 
-    return (
+    return empty ? (
+        <div className="col-sm-2 text-center " >
+            <button className={"p-3 button w-100"} onClick={onClick}>
+                <div
+                    className="playlist-thumbnail border border-primary2 noHover"
+                    style={{
+                        height: 140,
+                        position: "relative"
+                    }}
+                >
+                    <span>
+                        <i className="fas fa-plus-circle absoluteCenter  text-primary2"></i>
+                    </span>
+                </div>
+
+                <h3 title={'Add Song'} className={`playlist-name text-grey text-capitalize`}>
+                    Add Song
+                </h3>
+            </button>
+        </div>
+    ) : (
         <div className="col-sm-2">
             <div className="song p-3">
                 <button className="song-btn" onClick={onClick} >

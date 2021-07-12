@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 
 const currentTab = (history, path) => {
@@ -41,6 +40,12 @@ function Sidenav({ history, props }) {
                         <Link to="/webplayer/search" className={`sidenav-link ${currentTab(history, "/webplayer/search")}`}>
                             <i className="fas fa-search"></i>
                             <span>Search</span>
+                        </Link>
+                    </li>
+                    <li className="sidenav-item">
+                        <Link to="/playlist" className={`sidenav-link ${currentTab(history, "/playlist")}`}>
+                            <i class="fas fa-headphones"></i>
+                            <span>Playlist</span>
                         </Link>
                     </li>
                     <li className="sidenav-item" id="sidenav-toggler-mobile-parent">

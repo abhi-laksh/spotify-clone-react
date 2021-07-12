@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import searchSVG from '../../assets/images/search.svg';
+import { BACKEND } from '../../backend/api';
+import { getAllSongs } from '../../backend/helpers/song';
 import Layout from '../../components/layouts/Webplayer/Layout';
 import SongCard from '../../components/layouts/Webplayer/SongCard/SongCard';
-import { getAllSongs } from '../../backend/helpers/song';
 
-import searchSVG from '../../assets/images/search.svg';
-import { useState } from 'react';
-import { BACKEND } from '../../backend/api';
 
 function Search(props) {
-
 
     const [allSongs, setAllSongs] = useState([]);
 
@@ -30,8 +28,8 @@ function Search(props) {
     const preloadSongs = () => {
 
         getAllSongs().then((resp) => {
-            if (!resp || resp.songs) {
-                setAllSongs(resp.songs);
+            if (!resp || resp?.songs) {
+                setAllSongs(resp?.songs);
             }
         })
     }

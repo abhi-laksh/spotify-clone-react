@@ -5,10 +5,12 @@
     margin: 0;
     padding: 0;
 }
+
 *:focus,
 *:hover {
     outline: none;
 }
+
 body {
     font-family: $monts;
     font-weight: 500;
@@ -28,11 +30,12 @@ h5,
 h6 {
     font-family: $osw;
     color: $dark;
-    font-weight: 400; 
+    font-weight: 400;
     padding: 0;
     line-height: 1.5;
     margin-bottom: 1rem;
 }
+
 p {
     color: $dark;
 }
@@ -42,6 +45,7 @@ a {
     font-family: $monts;
     line-height: 1.5;
 }
+
 p,
 a,
 span,
@@ -52,15 +56,18 @@ textarea,
 label {
     padding: 0;
 }
+
 a {
     display: inline-block;
     text-decoration: none;
     font-weight: 500;
     @include transit(0.25s);
+
     &:hover {
         text-decoration: none;
     }
 }
+
 button {
     font-family: $monts;
     font-weight: 500;
@@ -69,56 +76,71 @@ button {
     background: none;
     border: none;
     @include transit(0.25s);
+
     &:focus,
     &:hover {
         outline: none;
     }
 }
+
 a,
 button,
 input,
 textarea {
     @include transit(0.3s);
 }
+
 input,
 textarea {
     border: none;
+
     @include hoverFocus {
         outline: none;
     }
 }
+
 ul,
 ol {
     list-style: none;
     margin: 0;
     padding: 0;
 }
+
 select {
     background-color: #fff;
 }
+
 @include setChildCmnt("custom classes starts");
 
-@each $className, $clr in $colors {
+@each $className,
+$clr in $colors {
     @if (not str-index($string: $className, $substring: "grad-")) {
         #{".text-" + $className} {
             color: $clr !important;
         }
     }
 }
-@each $className, $clr in $colors {
+
+@each $className,
+$clr in $colors {
     #{".bg-" + $className} {
         background: $clr !important;
     }
+
     #{".button-" + $className} {
         background: $clr !important;
 
-        @if (lightness($clr) <= 60%) {
+        @if (lightness($clr) <=60%) {
             color: $white;
+
             &:hover {
                 background-color: lighten($color: $clr, $amount: 10%) !important;
             }
-        } @else {
+        }
+
+        @else {
             color: $black;
+
             &:hover {
                 background-color: darken($color: $clr, $amount: 10%) !important;
             }
@@ -136,6 +158,7 @@ select {
             }
         }
     }
+
     #{".link-" + $className} {
         color: $clr !important;
 
@@ -143,7 +166,9 @@ select {
             &:hover {
                 color: lighten($color: $clr, $amount: 10%) !important;
             }
-        } @else {
+        }
+
+        @else {
             &:hover {
                 color: darken($color: $clr, $amount: 10%) !important;
             }
@@ -155,16 +180,20 @@ select {
             color: $clr !important;
         }
     }
+
     #{".link-hover-" + $className} {
         color: inherit;
+
         &:hover,
         &:focus {
             color: $clr !important;
         }
     }
+
     #{".button-border-" + $className} {
         border-color: $clr !important;
         color: $clr;
+
         &:hover {
             background-color: $clr;
             // background-color: rgba($clr,1);
@@ -183,7 +212,9 @@ select {
             }
         }
     }
+
     #{".input-border-" + $className} {
+
         // border-color: $clr !important;
         &:focus {
             border-color: $clr !important;
@@ -191,22 +222,26 @@ select {
             // box-shadow: 0px 0px 3px -2px lighten($color: $clr, $amount: 10%);
             // background-color: rgba($clr,1);
         }
+
         &:disabled,
         &[readonly],
         &.disabled {
             background-color: rgba($clr, 0.1) !important;
         }
     }
+
     #{".input-" + $className} {
         background-color: $clr !important;
+
         &:focus {
             background-color: lighten($color: $clr, $amount: 10%) !important;
             // box-shadow: 0px 0px 3px -2px lighten($color: $clr, $amount: 10%);
             // background-color: rgba($clr,1);
         }
 
-        @if (lightness($clr) <= 60%) {
+        @if (lightness($clr) <=60%) {
             color: $white;
+
             &:focus {
                 background-color: lighten($color: $clr, $amount: 10%) !important;
             }
@@ -214,8 +249,11 @@ select {
             &::placeholder {
                 color: rgba(#fff, lightness($clr) * 1.4);
             }
-        } @else {
+        }
+
+        @else {
             color: $black;
+
             &:focus {
                 background-color: lighten($color: $clr, $amount: 10%) !important;
             }
@@ -231,16 +269,27 @@ select {
             background-color: rgba($clr, 0.05) !important;
         }
     }
+
     #{".border-" + $className} {
         border-color: $clr !important;
     }
 }
+
 @each $bpName in $breakpoints-class {
     @include classForBP($bpName) {
-        @each $num, $val in $spacers {
+
+        @each $num,
+        $val in $spacers {
             #{".p" + $bpName + "-" + $num} {
                 padding: #{$val + " !important"};
             }
         }
     }
+}
+
+.absoluteCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

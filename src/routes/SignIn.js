@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { authenticate, signIn } from '../backend/helpers/auth';
 import Input from '../components/commons/Input';
 import SubPage from '../components/layouts/SubPage';
-import { Redirect } from 'react-router-dom';
-import { signIn, authenticate } from '../backend/helpers/auth';
 
 function SignIn(props) {
 
@@ -85,7 +85,7 @@ function SignIn(props) {
             />
             <Input
                 formClass="col-12"
-                label="Enter Email:"
+                label="Enter Password:"
                 type="password"
                 id="password"
                 name="password"

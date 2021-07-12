@@ -98,3 +98,142 @@ export const getProfile = (token) => {
             .catch((err) => { console.warn(err) })
     )
 }
+
+
+// Get All Fav Songs
+export const getAllPlaylists = (token) => {
+    return (
+        fetch(`${API}/playlist`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+        })
+            .then((response) => response.json())
+            .catch((err) => { console.warn(err) })
+    )
+}
+
+
+// Get All Fav Songs
+export const getAllSongsByPlaylistId = (id, token) => {
+    return (
+        fetch(`${API}/playlist/songs.php?id=${id}`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+        })
+            .then((response) => response.json())
+            .catch((err) => { console.warn(err) })
+    )
+}
+
+
+
+// Get All Fav Songs
+export const addSongsToPlaylist = (data, token) => {
+    return (
+        fetch(`${API}/playlist/add_songs.php`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+            .then((response) => response.json())
+            .catch((err) => { console.warn(err) })
+    )
+}
+
+// Get All Fav Songs
+export const removeSongsFromPlaylist = (data, token) => {
+    return (
+        fetch(`${API}/playlist/remove_songs.php`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+            .then((response) => response.json())
+            .catch((err) => { console.warn(err) })
+    )
+}
+
+
+// Get All Fav Songs
+export const getPlaylistById = (id, token) => {
+    return (
+        fetch(`${API}/playlist?id=${id}`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+        })
+            .then((response) => response.json())
+            .catch((err) => { console.warn(err) })
+    )
+}
+
+// delete artist
+export const deletePlaylist = (id, token) => {
+    return (
+        fetch(`${API}/playlist/delete.php`, {
+            method: "DELETE",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(id)
+        }).then((response) => response.json())
+            .catch((err) => { console.warn(err) })
+    )
+}
+
+
+// Add new playlist , also with songs
+export const addPlaylist = (data, token) => {
+    return (
+        fetch(`${API}/playlist/add.php`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+            .then((response) => response.json())
+            .catch((err) => { console.warn(err) })
+    )
+}
+
+
+// Add new playlist , also with songs
+export const updatePlaylist = (data, token) => {
+    return (
+        fetch(`${API}/playlist/update.php`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+            .then((response) => response.json())
+            .catch((err) => { console.warn(err) })
+    )
+}

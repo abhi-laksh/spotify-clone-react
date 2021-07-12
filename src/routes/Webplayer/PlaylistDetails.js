@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { BACKEND } from '../../backend/api';
 import { isAuthenticated } from '../../backend/helpers/auth';
-import { getAllFav } from '../../backend/helpers/user';
+import { getAllSongsByPlaylistId } from '../../backend/helpers/user';
 import Layout from '../../components/layouts/Webplayer/Layout';
+import SongList from '../../components/layouts/Webplayer/Playlist/SongList';
 import SongCard from '../../components/layouts/Webplayer/SongCard/SongCard';
-function Favourites(props) {
+
+function PlaylistDetails({ match, ...props }) {
+
+    const { params = {} } = match;
 
     const [status, setStatus] = useState({
         error: false,
@@ -12,29 +16,47 @@ function Favourites(props) {
         msg: "",
     });
 
-    const [allSongs, setAllSongs] = useState([]);
+    const [allSongs, setAllSongs] = useState();
 
     const [queue, setQueue] = useState([]);
 
+    const [showSonglist, setShowSonglist] = useState(false);
     const [currentSong, setCurrentSong] = useState(null);
 
     const preloadSongs = () => {
+
         const token = isAuthenticated() && isAuthenticated().user && isAuthenticated().token;
 
-        getAllFav(token).then((resp) => {
-            if (!resp || resp.error) {
-                setStatus({
-                    error: true,
-                    success: false,
-                    msg: (resp && resp.error) || "There is an error."
-                })
+        getAllSongsByPlaylistId((params.id), token).then((resp) => {
+            if (resp) {
+                if (resp.error) {
+                    setStatus({
+                        error: true,
+                        success: false,
+                        msg: (resp && resp.error) || "There is an error."
+                    })
 
-            } else {
-                setAllSongs(resp.favorites);
-
+                } else {
+                    setAllSongs([{ id: "99999999" }].concat(resp.songs));
+                }
             }
         })
+
     }
+
+    const openSongList = (e) => {
+
+        e.stopPropagation();
+
+        setShowSonglist(true)
+
+    };
+
+
+    const closeSongList = (e) => {
+        setShowSonglist(false);
+
+    };
 
     const playThisSong = (id) => () => {
         if (!(queue.indexOf(id) !== -1)) {
@@ -47,6 +69,7 @@ function Favourites(props) {
 
     const Songs = (item, index) => (
         <SongCard
+            empty={!item.song_id}
             key={item.song_id}
             title={item.song_name}
             artist={item.artist_name}
@@ -56,7 +79,7 @@ function Favourites(props) {
             thumbail={item.thumbnail ? `${BACKEND}/${item.thumbnail}` : null}
             // thumbail={item.thumbnail ? `${BACKEND}/${item.thumbnail}` : null}
             isPlaying={currentSong === item.song_id}
-            onClick={playThisSong(item.song_id)}
+            onClick={!item.song_id ? openSongList : playThisSong(item.song_id)}
         />
     )
 
@@ -73,11 +96,15 @@ function Favourites(props) {
 
 
     useEffect(() => {
-        preloadSongs();
-    }, [])
+        
+        if(params.id){
+            preloadSongs();
+        }
+
+    }, [JSON.stringify(params)])
 
     return (
-        <Layout title={"Favourites"} setCurrentSong={setCurrentSong} queue={queue} currentSong={currentSong}>
+        <Layout title={"Playlist Details"} setCurrentSong={setCurrentSong} queue={queue} currentSong={currentSong}>
             {
                 allSongs && allSongs.length
                     ? (
@@ -90,8 +117,16 @@ function Favourites(props) {
                         <div></div>
                     )
             }
+
+            <SongList
+                show={showSonglist}
+                onHide={closeSongList}
+                title="Add/Remove Songs to Playlist"
+                afterSubmit={preloadSongs}
+                selectedId={params.id}
+            />
         </Layout>
     );
 }
 
-export default Favourites;
+export default PlaylistDetails;

@@ -1,41 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-
-import Home from './routes/Home/Home';
-import Webplayer from './routes/Webplayer/Webplayer';
-import Search from './routes/Webplayer/Search';
-
-import SignUp from './routes/SignUp';
-import SignIn from './routes/SignIn';
-
-import AdminSignIn from './routes/Admin/SignIn';
-
-import ProtectedRoutes from './routes/ProtectedRoutes';
-
-import Account from './routes/Account';
-
-
-import AdminRoutes from './routes/AdminRoutes';
-import Dashboard from './routes/Admin/Dashboard';
-
-import Artists from './routes/Admin/Artists';
-import EditArtist from './routes/Admin/EditArtist';
-import AddArtist from './routes/Admin/AddArtist';
-
-import Genres from './routes/Admin/Genres';
-import AddGenre from './routes/Admin/AddGenre';
-import EditGenre from './routes/Admin/EditGenre';
-
-import Moods from './routes/Admin/Moods';
-import AddMood from './routes/Admin/AddMood';
-import EditMood from './routes/Admin/EditMood';
-
-import Songs from './routes/Admin/Songs';
-import AddSong from './routes/Admin/AddSong';
-import EditSong from './routes/Admin/EditSong';
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { isAuthenticated, signOut } from './backend/helpers/auth';
+import Account from './routes/Account';
+import AddArtist from './routes/Admin/AddArtist';
+import AddGenre from './routes/Admin/AddGenre';
+import AddMood from './routes/Admin/AddMood';
+import AddSong from './routes/Admin/AddSong';
+import Artists from './routes/Admin/Artists';
+import Dashboard from './routes/Admin/Dashboard';
+import EditArtist from './routes/Admin/EditArtist';
+import EditGenre from './routes/Admin/EditGenre';
+import EditMood from './routes/Admin/EditMood';
+import EditSong from './routes/Admin/EditSong';
+import Genres from './routes/Admin/Genres';
+import Moods from './routes/Admin/Moods';
+import AdminSignIn from './routes/Admin/SignIn';
+import Songs from './routes/Admin/Songs';
+import AdminRoutes from './routes/AdminRoutes';
+import Home from './routes/Home/Home';
+import ProtectedRoutes from './routes/ProtectedRoutes';
+import SignIn from './routes/SignIn';
+import SignUp from './routes/SignUp';
 import Favourites from './routes/Webplayer/Favourites';
+import Playlist from './routes/Webplayer/Playlist';
+import PlaylistDetails from './routes/Webplayer/PlaylistDetails';
+import Search from './routes/Webplayer/Search';
+import Webplayer from './routes/Webplayer/Webplayer';
+
 
 function Routes(props) {
 
@@ -54,7 +45,7 @@ function Routes(props) {
             setIsTokenExpired(false);
         })
     }, [isTokenExpired])
- 
+
 
     return (
         <Router>
@@ -67,8 +58,11 @@ function Routes(props) {
                 <Route path="/webplayer/search" exact component={Search} />
 
                 <Route path="/admin/signin" exact component={AdminSignIn} />
+
                 <ProtectedRoutes path="/account" exact component={Account} />
                 <ProtectedRoutes path="/favourites" exact component={Favourites} />
+                <ProtectedRoutes path="/playlist" exact component={Playlist} />
+                <ProtectedRoutes path="/playlist/details/:id" exact component={PlaylistDetails} />
 
                 <AdminRoutes path="/admin" exact component={Dashboard} />
                 <AdminRoutes path="/admin" exact component={Dashboard} />

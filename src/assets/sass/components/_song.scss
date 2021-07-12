@@ -4,12 +4,13 @@
         width: 100%;
         position: relative;
     }
+
     &-thumbnail {
         position: relative;
         height: 140px;
         overflow: hidden;
 
-        > img {
+        >img {
             width: 100%;
             @include transit(0.3s);
             max-width: 100%;
@@ -27,6 +28,7 @@
             pointer-events: none;
             background-color: rgba($primary1, 0);
             @include transit(0.25s);
+
             img {
                 width: 30%;
                 height: 30%;
@@ -38,20 +40,45 @@
                 opacity: 0;
                 @include transit(blur 0.25s ease-in-out);
             }
+
+            i {
+                font-size: 3rem;
+                @include transit(opacity 0.25s ease-in-out);
+                opacity: 0;
+            }
         }
 
-        &:hover {
+        &:not(.noBlur):hover {
             span {
                 background-color: rgba($primary1, 0.7);
+
                 img {
                     opacity: 1;
                 }
             }
-            > img {
+
+            >img {
                 @include webkitMaker(filter, blur(2px));
             }
         }
+
+        &.noBlur {
+            &:hover {
+                span {
+                    background-color: rgba($primary1, 0.7);
+
+                    i {
+                        opacity: 0.75;
+                    }
+                }
+
+                >img {
+                    opacity: 1;
+                }
+            }
+        }
     }
+
     &-name {
         font-size: 1rem;
         margin-top: 0.5rem;
@@ -60,11 +87,12 @@
         white-space: nowrap;
         text-overflow: ellipsis;
     }
+
     &-info {
         display: flex;
         margin: 0.5rem 0;
         align-items: center;
-        
+
         span {
             color: inherit;
             text-align: center;
@@ -82,4 +110,147 @@
 
         }
     }
+}
+
+.playlist {
+    &-btn {
+        display: block;
+        width: 100%;
+        position: relative;
+    }
+
+    &-thumbnail {
+        position: relative;
+        height: 140px;
+        overflow: hidden;
+
+        >img {
+            width: 100%;
+            @include transit(0.3s);
+            max-width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        span {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-color: rgba($primary1, 0);
+            @include transit(0.25s);
+
+            img {
+                width: 30%;
+                height: 30%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                @include transF(translate(-50%, -50%));
+                z-index: 0;
+                opacity: 0;
+                @include transit(blur 0.25s ease-in-out);
+            }
+
+            i {
+                font-size: 3rem;
+                @include transit(opacity 0.25s ease-in-out);
+                opacity: 0;
+            }
+        }
+
+        &-action{
+            &-wrapper{
+                position: absolute;
+                width: 100%;
+                padding: 0.5rem;
+                bottom: 0;
+                left: 0;
+                z-index: 1;
+                background-color: rgba($primary1, 0.8);
+                @include transF(translate(0%, 200%));
+                @include transit(0.25s);
+    
+            }
+        }
+
+        &.noHover{
+
+            i {
+                font-size: 3rem;
+                @include transit(opacity 0.25s ease-in-out);
+                opacity: 1;
+            }
+        }
+
+        &:not(.noHover):hover {
+            span {
+                background-color: rgba($primary1, 0.7);
+
+                img {
+                    opacity: 1;
+                }
+            }
+
+            >img {
+                @include webkitMaker(filter, blur(2px));
+            }
+
+            .playlist-thumbnail-action-wrapper{
+                @include transF(translate(0%, 0%));
+            }
+        }
+
+        &.noBlur:not(.noHover) {
+            &:hover {
+                span {
+                    background-color: rgba($primary1, 0.7);
+
+                    i {
+                        opacity: 0.75;
+                    }
+                }
+
+                >img {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &-name {
+        font-size: 1rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &-info {
+        display: flex;
+        margin: 0.5rem 0;
+        align-items: center;
+
+        span {
+            color: inherit;
+            text-align: center;
+            font-size: 0.625rem;
+            font-weight: 600;
+            flex: 1 1 auto;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding: 0 4px;
+
+            &:not(:last-child) {
+                border-right: 1px solid $dark;
+            }
+
+        }
+    }
+
 }

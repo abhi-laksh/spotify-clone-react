@@ -1,16 +1,11 @@
-import React, { useEffect } from 'react';
-
-import Slider from '../../../commons/Slider';
-
-import playIcon from '../../../../assets/images/play.svg';
+import React, { useEffect, useRef, useState } from 'react';
 import pauseIcon from '../../../../assets/images/pause.svg';
-import udi from '../../../../assets/mp3/Udi Teri Aankhon Se Guzaarish Hrithik Roshan, Aishwarya Rai.mp3';
-import mysong from '../../../../assets/mp3/a.mp3';
-import { useState, useReducer } from 'react';
-import { getDurMin } from '../../../helpers/audio';
-import { streamSong } from '../../../../backend/helpers/song';
-import { useRef } from 'react';
+import playIcon from '../../../../assets/images/play.svg';
 import { STREAM } from '../../../../backend/api';
+import Slider from '../../../commons/Slider';
+import { getDurMin } from '../../../helpers/audio';
+
+
 
 
 const TOGGLE = "toggle";
@@ -272,10 +267,6 @@ function Control({ songId, queue, setCurrentSong = () => { }, length, ...props }
         }
 
     }, [queue, songId]);
-
-    console.log('====================================');
-    console.log(`prev::${prevSong}`, `CURR::${songId}`, `next::${nextSong}`);
-    console.log('====================================');
 
     return (
         <div className="player-controls">
